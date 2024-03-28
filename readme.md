@@ -185,14 +185,59 @@ fallback:false
 - we can revalidate for every 10 secods if we are having any changes that will update for every 10seconds
   - ![alt text](image-2.png)
   - ![alt text](image-3.png)
-- # Two form of pre-rendering
-  - Static Generation
-  - server side rendering
-  - Static Generation
-    - the HTML is statically generated at build time the built page is then cached and reused for each request
-    - for a dynamic page with getStaticPaths and fallback set to true the page is not generated at build time is generated on the initial request
-    - with the incremental static generation a page can be re-generated for a request after the revalidation time has elapsed.
-- Problems with Static Generation
-    - we cannot fetch data at req time 
-    - let's day for a new paper website for every seconds the news will be updated here the static generation will not help here it's hard to go with the ISR. 
+
+# Two form of pre-rendering
+
+- Static Generation
+- server side rendering
+- # Static Generation
+  - the HTML is statically generated at build time the built page is then cached and reused for each request
+  - for a dynamic page with getStaticPaths and fallback set to true the page is not generated at build time is generated on the initial request
+  - with the incremental static generation a page can be re-generated for a request after the revalidation time has elapsed.
+  - Problems with Static Generation
+    - we cannot fetch data at req time
+    - let's day for a new paper website for every seconds the news will be updated here the static generation will not help here it's hard to go with the ISR.
 - we don't get access to the incoming request.
+- # Server Side Rendering
+
+  - NextJS allows to pre-render a page at request time not at build time.
+  - So the HTML is generated for every incoming request.
+  - How NextJS will make it possible to fetch data at request time and how it will get the accessing of incoming request time
+
+# How to fetch the data to pre-render using Serve Side render
+
+- In nextJS if we want to use SSR we need to export an async function called `getServerSideProps`, it will called by server for every request inside that we can fetch data and serve as props to the component.
+- In that function we will return a object that contains props object and that will be served to our page component.
+  - Imp points
+    - `getServerSideProps` will run only server side
+    - this function will never run on client side
+    - the code return inside this function that will not include in JS bundle that is sent to Browser.
+    - we ca write the ser-side code in this function like accessing fs module or querying a DB can done
+    - this functions will work on only in pages not on components
+    - it will on every request time
+- # SSR with Dynamic Parameters
+  - we will create a dynamic file and in that we will export our component and async function
+  - In the async function will make an api call with the dynamic parameters, To get the dynamic parameter in the Server side props we will receive a context as function
+    parameter from that we can destructure and take the params as we have done same for the Static Generation for `getStaticProps`, `const {params} = context`, `const {ID} = params`, after making api call we should return the object that contains the props object that contains our data and that can be passed to out page as props.
+  - we can also include the req, res from the context parameter.
+  # Client Side data-fetching
+  - will use useEffect();
+  - # SWR for Data Fetching...[React hooks for data fetching...] in NextJS
+    It was the best one for fetching data
+  - # Pre-rendering + Client side data fetching..
+  - As usual we can define the async function and export it ant return the object contains the object `getServerSideProps` in tis will make an api call.
+  - # Shallow routing... routing without calling getStaticProps/getServeSideProps.
+  - ![alt text](image-4.png)
+    ![alt text](image-5.png)
+    `refer to video---------------------38`
+  - Summary
+  - ![alt text](image-6.png)
+  - ![alt text](image-7.png)
+
+# API Routes Section.....
+
+  - What is API route features & how to create a basic API in NextJS
+  - Handle GET & POST requests
+  - Dynamic API routes
+  - Handle DELETE request
+  - Catch all API routes.
