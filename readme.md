@@ -86,7 +86,7 @@
   - As we know that the react app will not render every page in the application
   - By default the next app will pre-renders every page in the application
   - Pre-render means, nextJs generates the HTML for each page in advance instead of having it all done by client-side javascript
-  - In a react app once the JS is loaded for the page it will execute in the browser create diff dom nodes and mount them on the root div this process also called as hydration.
+  - In a react app once   JS is loaded for the page it will execute in the browser create diff dom nodes and mount them on the root div this process also called as hydration.
   - In the next app the HTML is already generated with the req data and sent to browser then the JS will load the page
   - pre-render means render in advance of sending it to the browser
   - Why pre-render is required
@@ -98,7 +98,7 @@
   - Eg to use Blog pages, e-commerce product pages, documentations and marketing pages.
 - # Static generation with data
   - generating the html after fetching some external data
-  - we can define an async function named as `getStaticProps` or `getServerSideProps` and export it at the build time in production it will fetch some data and pass down as page props and the async function will return an object as props with key value pairs
+  - we can define an async function named as `getStaticProps` and export it at the build time in production it will fetch some data and pass down as page props and the async function will return an object as props with key value pairs
     -Eg: return{
     props:{
     users: response.data;
@@ -129,7 +129,7 @@
 
 # master/ list details pattern in UI
 
-- where we will have a list of items and each ite will have detailed page
+- where we will have a list of items and each item will have detailed page
 - how to generate the static pages with the dynamic Id's
 - in the list's page fetch the data in `getStaticProps` and pass it through props this will pre-render the lists
 - the detailed page were will fetch details of each id we will make an api call in `getStaticProps` but to access the dynamic Id there will be default parameter in `getStaticProps` we can call it as context in that object we will destructure `params` from that we will use that in api as `params.postId` and we will return the props object that will receive in component props.
